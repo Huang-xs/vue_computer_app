@@ -1,0 +1,206 @@
+<%- include("./public/header.html")%>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>添加字段功能</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/admin/">主页</a>
+                </li>
+                <li>
+                    <strong>包屑导航</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8 ">
+            <div class="title-action ">
+                <button id="add" class="btn btn-success">添加字段</button>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content ">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>名称(全中文)</th>
+                    <th>字段(全英文)</th>
+                    <th>表单类型</th>
+                    <th>默认类型</th>
+                    <th>验证</th>
+                    <th>规则</th>
+                    <th>字段</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i = 0;i < result.length;i++){ %>
+                    <tr>
+                        <td>
+                            <%=result[i].chineseName%>
+                        </td>
+                        <td>
+                            <%=result[i].englishName%>
+                        </td>
+                        <td>
+                            <%=result[i].datatype?result[i].datatype.cname:""%>
+                        </td>
+                        <td>
+                            <%=result[i].defaulttype%>
+                        </td>
+                        <td>
+                            <%=result[i].checking%>
+                        </td>
+                        <td>
+                            <%=result[i].rule%>
+                        </td>
+                        <td>
+                            <%=result[i].isShow?"是":"否"%>
+                        </td>
+                        <td>
+                            <button type="button" data-navbarid="<%=_id%>" data-id="<%=result[i]._id%>" class="btn btn-success edit">修改</button>
+                            <button type="button" data-navbarid="<%=_id%>" data-id="<%=result[i]._id%>" class="btn btn-danger del">删除</button>
+                        </td>
+
+                    </tr>
+                    <% } %>
+                        <tr id="addData" style="display: none;">
+                            <td>
+                                <input type="hidden" name="_id" value="<%=_id%>">
+                                <input type="text" name="chineseName">
+                            </td>
+                            <td>
+                                <input type="text" name="englishName">
+                            </td>
+                            <td>
+                                <select name="datatype">
+                                    <%for(var i = 0; i< fieldtype.length;i++){%>
+                                    <option value="<%=fieldtype[i]._id%>"><%=fieldtype[i].cname%></option>
+                                    <%}%>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="defaulttype">
+                        <option value="String">String</option>
+                        <option value="Number">Number</option>
+                        <option value="Date">Date</option>
+                        <option value="Boolean">Boolean</option>
+                        <option value="Array">Array</option>
+                        <!-- 对象中包含数组 -->
+                        <!-- <option value="Object">Object</option> -->
+                        <!-- query为自定义的类型 -->
+                        <option value="query">query</option>
+                    </select>
+                            </td>
+                            <td>
+                                <input type="text" name="checking">
+                            </td>
+                            <td>
+                                <textarea name="rule" cols="20" rows="3" placeholder="Array=>11,22,33 Object=>name:11,name:22,name:33 database=>Database Name"></textarea>
+                            </td>
+                            <td>
+                                <select name="isShow">
+                        <option value="true">显示</option>
+                        <option value="false">隐藏</option>
+                    </select>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info addData">确定</button>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+    </div>
+    <%- include("./public/footer.html")%>
+
+        <script>
+            $(function() {
+                $("#add").click(function() {
+                    console.log("4444");
+
+                    $("#addData").clone().show().appendTo("tbody");
+                })
+                $("tbody").on("click", ".addData", function() {
+                    console.log($(this));
+                    let obj = {};
+                    $(this).parents("tr").find("input,select,textarea").each(function() {
+                        obj[$(this).attr("name")] = $(this).val();
+                    })
+
+                    $.ajax({
+                        url: "/admin/database/add",
+                        type: "post",
+                        data: obj,
+                        dataType: "json",
+                        success: function(data) {
+
+                            console.log(data);
+                            if (data.code == 200) {
+                                location.href = location.href;
+                            } else {
+                                alert("数据提交失败");
+                            }
+                        }
+                    })
+                })
+                $(".edit").click(function() {
+                    var trIndex = $(this).parents("tr").index();
+                    // 获取点击修改的原始数据的id
+                    var fieldsId = $(this).data("id");
+
+                    $("tbody tr:eq(" + trIndex + ")").after($("#addData").clone().show());
+                    $("tbody tr:eq(" + (trIndex + 1) + ")").find(".addData").removeClass("addData").addClass("editData").data("fieldsId", fieldsId);
+
+                    $("tbody").on("click", ".editData", function() {
+                        console.log($(this));
+                        let obj = {};
+                        obj["fieldsId"] = $(this).data("fieldsId");
+                        $(this).parents("tr").find("input,select,textarea").each(function() {
+                            if ($(this).val()) {
+
+                                obj[$(this).attr("name")] = $(this).val();
+                            }
+                        })
+
+                        $.ajax({
+                            url: "/admin/database/edit",
+                            type: "post",
+                            data: obj,
+                            dataType: "json",
+                            success: function(data) {
+
+                                console.log(data);
+                                if (data.code == 200) {
+                                    location.href = location.href;
+                                } else {
+                                    alert("数据提交失败");
+                                }
+                            }
+                        })
+                    })
+                })
+
+                $("tbody").on("click", ".del", function() {
+                    console.log("llllllll");
+
+                    let _this = $(this);
+
+                    $.ajax({
+                        url: "/admin/database/del",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            navbarId: _this.data("navbarid"),
+                            fieldsId: _this.data("id")
+                        },
+                        success: function(data) {
+                            if (data.code == 200) {
+                                location.href = location.href;
+                            } else {
+                                alert("数据提交失败");
+                            }
+                        }
+                    })
+                })
+
+            })
+        </script>

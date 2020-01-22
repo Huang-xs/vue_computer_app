@@ -1,0 +1,49 @@
+<%- include("./public/header.html")%>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>分类功能</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/admin/">主页</a>
+                </li>
+                <li>
+                    <strong>包屑导航</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8 ">
+            <div class="title-action ">
+                <a href="/admin/category/add" class="btn btn-success ">添加数据</a>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content ">
+
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>#编号</th>
+                    <th>名称</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for(var i = 0;i<result.length;i++){%>
+                    <tr>
+                        <td>
+                            <%=i+1%>
+                        </td>
+                        <td>
+                            <%=result[i].categoryName%>
+                        </td>
+                        <td>
+                            <a href="/admin/category/del?_id=<%=result[i]._id%>" type="button" class="btn btn-danger">删除</a>
+                            <a href="#" type="button" class="btn btn-success">编辑</a>
+                        </td>
+                    </tr>
+                    <%}%>
+            </tbody>
+        </table>
+    </div>
+
+    <%- include("./public/footer.html")%>

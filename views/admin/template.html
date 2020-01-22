@@ -1,0 +1,52 @@
+<%- include("./public/header.html")%>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>模板功能：同时集成对某个数据库的增删改查的功能</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/admin/">主页</a>
+                </li>
+                <li>
+                    <strong>包屑导航</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8 ">
+            <div class="title-action ">
+                <a href="/admin/template/add" class="btn btn-success ">添加数据</a>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content ">
+
+        <table class="table ">
+            <thead>
+                <tr>
+                    <% for(var i = 0;i < templateData.length;i++){ %>
+                        <th>
+                            <%=templateData[i].chineseName%>
+                        </th>
+                        <% } %>
+                            <th>操作</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <%for(var j=0;j < result.length;j++){ %>
+                    <tr>
+                        <% for(var k = 0;k < templateData.length;k++){ %>
+                            <td>
+                                <%=result[j][templateData[k].englishName] %>
+                            </td>
+                            <% } %>
+
+                                <td>
+                                    <a href="/admin/template/edit?_id=<%=result[j]._id%>" type="button" class="btn btn-info">修改</a>
+                                    <a href="/admin/template/del?_id=<%=result[j]._id%>" type="button" class="btn btn-danger">删除</a>
+                                </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+    <%- include("./public/footer.html")%>

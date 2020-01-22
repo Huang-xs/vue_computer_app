@@ -1,0 +1,116 @@
+<%- include("./public/header.html")%>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>导航功能</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/admin/">主页</a>
+                </li>
+                <li>
+                    <strong>包屑导航</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8 ">
+            <div class="title-action ">
+                <a href="/admin/navbar/add" class="btn btn-success ">添加内容</a>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>数据库名称</th>
+                    <th>缩略图</th>
+                    <th>路径</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <div id="treeview5" class="test treeview">
+            <ul class="list-group">
+                <%for(var i = 0; i<result.length;i++){%>
+                    <li class="list-group-item node-treeview5" data-nodeid="0">
+                        <div class=" row">
+                            <div class="col-md-3">
+                                <% for(var j = 1;j < result[i].level;j++){ %>
+                                    <span class="indent"></span>
+                                    <%}%>
+                                        <span class="icon"><i class="click-collapse glyphicon glyphicon-chevron-down"></i></span>
+                                        <span class="icon"><i class="glyphicon glyphicon-bookmark"></i></span>
+                                        <%=result[i].name%>
+                            </div>
+                            <div class="col-md-2">
+                                <%=result[i].database%>
+                            </div>
+                            <div class="col-md-2">
+                                <img src="<%=result[i].picture%>" width="50px" height="50px" alt="">
+                            </div>
+                            <div class="col-md-2">
+                                <%=result[i].url%>
+                            </div>
+                            <div class="col-md-3">
+                                <%if(result[i].isTemplate){%>
+                                    <a href="/admin/database?_id=<%=result[i]._id%>" type="button" class="btn btn-info">添加字段</a>
+                                    <%}%>
+                                        <a href="/admin/navbar/edit?_id=<%=result[i]._id%>" type="button" class="btn btn-info">修改</a>
+                                        <a href="/admin/navbar/del?_id=<%=result[i]._id%>" type="button" class="btn btn-danger">删除</a>
+                            </div>
+                        </div>
+                    </li>
+                    <%}%>
+                        <!-- <li class="list-group-item node-treeview5" data-nodeid="1" style="">
+               <span class="indent"></span>
+               <span class="icon">
+           <i class="click-expand glyphicon glyphicon-chevron-right"></i>
+       </span>
+               <span class="icon">
+           <i class="glyphicon glyphicon-bookmark"></i>
+       </span> 子节点 1
+           </li>
+           <li class="list-group-item node-treeview5" data-nodeid="2" style="">
+               <span class="indent"></span>
+               <span class="icon"><i class="glyphicon"></i></span>
+               <span class="icon"><i class="glyphicon glyphicon-bookmark"></i></span> 子节点 2
+           </li>-->
+            </ul>
+        </div>
+    </div>
+    <%- include("./public/footer.html")%>
+        <script>
+            // $(function() {
+
+            //     var updateOutput = function(e) {
+            //         var list = e.length ? e : $(e.target),
+            //             output = list.data('output');
+            //         if (window.JSON) {
+            //             output.val(window.JSON.stringify(list.nestable('serialize'))); //, null, 2));
+            //         } else {
+            //             output.val('浏览器不支持');
+            //         }
+            //     };
+
+            //     $('#nestable2').nestable({
+            //         group: 1
+            //     }).on('change', updateOutput);
+
+            //     updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+            //     $('#nestable-menu').on('click', function(e) {
+            //         var target = $(e.target),
+            //             action = target.data('action');
+            //         if (action === 'expand-all') {
+            //             $('.dd').nestable('expandAll');
+            //         }
+            //         if (action === 'collapse-all') {
+            //             $('.dd').nestable('collapseAll');
+            //         }
+            //     });
+            // });
+        </script>

@@ -1,0 +1,112 @@
+.hideConBox{
+	border:1px dashed #ff9a9a;
+	background:#ffffe0 url("../images/locked.gif")/*tpa=https://www.hnysnet.com/zb_users/plugin/ZCenter/static/images/locked.gif*/ no-repeat 9px 12px;
+	padding: 5px 0 5px 25px;
+	margin:5px auto;
+	color:#666;
+	line-height:26px;
+}
+
+.hideConBox img{
+	vertical-align: middle;
+	margin:0 5px;
+	border:none;
+}
+span.commentau{
+    background-color: #4a4a4a;
+    color: #eee !important;
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 1px;
+    opacity: 0.9;
+    padding: 2px 7px 1px;
+}
+
+span.aulevel1 {
+    background-color: #f0ad4e;
+}
+span.aulevel2 {
+    background-color: #4a4a4a;
+}
+span.aulevel3 {
+    background-color: #5cb85c;
+}
+span.aulevel4 {
+    background-color: #d9534f;
+}
+span.aulevel5 {
+    background-color: #428bca;
+}
+
+
+
+/**************buy form***************/
+.entry .paydown {
+    background: none repeat scroll 0 0 #f8f8f8;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    width: auto;
+    height:150px;
+}
+.entry .paydown p {
+    border-bottom: 1px solid #f8f8f8;
+    margin: 3px;
+    padding: 3px 15px;
+    text-indent: 0;
+}
+.entry .paydown p span {
+    color: #e14d43;
+    font-size: 120%;
+    font-weight: bold;
+    padding: 0 5px;
+}
+.entry .paydown .down-title {
+    color: #666;
+    float: left;
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 15px;
+    text-align: center;
+    width: 9%;
+}
+.entry .paydown .down-detail {
+    background: none repeat scroll 0 0 #fff;
+    border-left: 1px solid #eee;
+    float: right;
+    min-height: 140px;
+    width: 90%;
+}
+.entry .paydown p.down-ordinary {
+    color: #09b1b9;
+}
+.entry .paydown p.down-vip {
+    color: #e14d43;
+}
+.entry .paydown p a {
+    font-weight: bold;
+    margin-left: 10px;
+}
+.entry .paydown p.down-tip {
+    border-bottom: 0 none;
+}
+
+
+.zcenter_verifycode{
+ cursor: pointer;
+ margin:0 !important;
+ padding:0 !important;
+ text-align:left !important;
+ width:25% !important;
+ float:left !important;
+}
+
+.zcenter_verifycode img{
+ height:50px;
+}
+
+.zcenter_verifycode_input{
+    padding:0 0 14px;
+    width:75% !important;
+    float:left !important;
+}
+

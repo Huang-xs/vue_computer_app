@@ -1,0 +1,55 @@
+<%- include("./public/header.html")%>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Api功能</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/admin/">主页</a>
+                </li>
+                <li>
+                    <strong>包屑导航</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8 ">
+            <div class="title-action ">
+                <a href="/admin/category/add" class="btn btn-success ">添加数据</a>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content ">
+
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>Api功能</th>
+                    <th>类型</th>
+                    <th>URL接口</th>
+                    <th>描述</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for(var i=0;i< result.length;i++){%>
+                    <%if(result[i][4]){%>
+                        <tr>
+                            <th>
+                                <%=result[i][3]%>
+                            </th>
+                            <th>
+                                <%=result[i][0]%>
+                            </th>
+                            <th>http://127.0.0.1:3000/api
+                                <%=result[i][1]%>?
+                            </th>
+                            <th>
+                                <%=result[i][5]%>
+                            </th>
+                        </tr>
+                        <%}%>
+                            <%}%>
+
+            </tbody>
+        </table>
+    </div>
+
+    <%- include("./public/footer.html")%>

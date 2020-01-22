@@ -1,0 +1,62 @@
+<%- include("./public/header.html")%>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>内容功能</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/admin/">主页</a>
+                </li>
+                <li>
+                    <strong>包屑导航</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8 ">
+            <div class="title-action ">
+                <a href="/admin/content/add" class="btn btn-success ">添加内容</a>
+            </div>
+        </div>
+    </div>
+    <div class="ibox-content ">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#编号</th>
+                    <th>标题</th>
+                    <th>分类</th>
+                    <th>收藏</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%for(var j=0;j<result.length;j++){%>
+                    <%if(!result[j].isDel){%>
+                        <tr>
+                            <td>
+                                <%=result[j].isDel==false?j+1:""%>
+                            </td>
+                            <td>
+                                <%=result[j].title%>
+                            </td>
+                            <td>
+                                <%=result[j].category.categoryName%>
+                            </td>
+                            <td>
+                                <%=result[j].isCollect=="true"?"是":"否"%>
+                            </td>
+                            <td>
+                                <%=sd.format(result[j].addTime,'YYYY-MM-DD HH:mm:ss')%>
+                            </td>
+                            <td>
+                                <a href="/admin/content/del?id=<%=j%>" type="button" class="btn btn-danger">删除</a>
+                                <a href="/admin/content/edit?_id=<%=result[j]._id%>" type="button" class="btn btn-success">编辑</a>
+                            </td>
+                        </tr>
+                        <%}%>
+                            <%}%>
+            </tbody>
+        </table>
+    </div>
+    <%- include("./public/footer.html")%>

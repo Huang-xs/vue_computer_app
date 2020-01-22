@@ -1,0 +1,204 @@
+<%- include("./public/header.html")%>
+<div class="ibox-content">
+  <form method="post" action="add" class="form-horizontal">
+    <div class="row">
+
+      <%for(var i=0;i<templateData.length;i++){%>
+
+      <%if(templateData[i].datatype.ename == "string"){%>
+      <div class="form-group has-success">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="请输入该字段的相关内容" name="<%=templateData[i].englishName%>">
+        </div>
+      </div>
+
+      <% }else if(templateData[i].datatype.ename == "number"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" name="<%=templateData[i].englishName%>">
+        </div>
+      </div>
+
+      <% }else if(templateData[i].datatype.ename == "text"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <textarea name="<%=templateData[i].englishName%>" id="" cols="30" rows="3"></textarea>
+        </div>
+      </div>
+
+      <% }else if(templateData[i].datatype.ename == "date"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10" id="data_1">
+          <div class="input-group date">
+            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input type="text" class="form-control" value="" name="<%=templateData[i].englishName%>">
+          </div>
+        </div>
+      </div>
+
+      <% }else if(templateData[i].datatype.ename == "boolean"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <input type="radio" value="true" name="<%=templateData[i].englishName%>"> 是
+          <input type="radio" value="false" name="<%=templateData[i].englishName%>"> 否
+        </div>
+      </div>
+
+      <% }else if(templateData[i].datatype.ename == "radio"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <% for(var g = 0;g < templateData[i].rule.length;g++){ %>
+          <input type="radio" value="<%=templateData[i].rule[g]%>" name="<%=templateData[i].englishName%>">
+          <%=templateData[i].rule[g]%>
+          <% } %>
+        </div>
+      </div>
+      <% }else if(templateData[i].datatype.ename == "checkbox"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <% for(var g = 0;g < templateData[i].rule.length;g++){ %>
+          <input type="checkbox"" value=" <%=templateData[i].rule[g].v %>" name="<%=templateData[i].englishName%>">
+          <%=templateData[i].rule[g].t %>
+          <% } %>
+        </div>
+      </div>
+      <% }else if(templateData[i].datatype.ename == "editor"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <textarea name="<%=templateData[i].englishName%>" class="summernote" id="" cols="30" rows="10"></textarea>
+        </div>
+      </div>
+      <% }else if(templateData[i].datatype.ename == "markdown"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <textarea name="<%=templateData[i].englishName%>" data-provide="markdown" id="" cols="30"
+            rows="10"></textarea>
+        </div>
+      </div>
+      <% }else if(templateData[i].datatype.ename == "thumbnail"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <input type="file" class="thumbnail">
+          <input type="hidden" name="<%=templateData[i].englishName%>">
+          <img class="fileImg" style="width:150px;" src="\img\uploads.jpg" alt="">
+        </div>
+      </div>
+      <% }else if(templateData[i].datatype.ename == "imgs"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <div class="row clearfix">
+            <input type="file" class="pull-left" id="moreImgs" data-imgsname="<%=templateData[i].englishName%>">
+            <font color="red" class="pull-left">双击删除图片</font>
+          </div>
+          <div id="imagelist" class="clearfix">
+          </div>
+
+        </div>
+      </div>
+      <% }else if(templateData[i].datatype.ename == "select"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10">
+          <select name="<%=templateData[i].englishName%>" id="">
+            <% for(var g = 0;g < templateData[i].rule.length;g++){ %>
+            <option value="<%=templateData[i].rule[g].v %>"><%=templateData[i].rule[g].t %></option>
+            <% } %>
+          </select>
+        </div>
+      </div>
+      <% }else if(templateData[i].datatype.ename == "query"){ %>
+      <div class="form-group">
+        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+        <div class="col-sm-10 chosen-select-query">
+          <select name="<%=templateData[i].englishName%>" data-placeholder="选择省份..."
+            data-rule="<%=templateData[i].rule[0] %>" class="chosen-select" style="width:350px;" tabindex="2">
+            <option value="">请选择省份</option>
+
+          </select>
+        </div>
+      </div>
+      <%}%>
+<%}%>
+
+    </div>
+
+    <button class="btn btn-success  dim" type="submit"><i class="fa fa-upload"></i>
+    </button>
+  </form>
+</div>
+
+<%- include("./public/footer.html")%>
+<%- include("./public/upload.html")%>
+
+<script>
+  $('#data_1 .input-group.date').datepicker({
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    calendarWeeks: true,
+    autoclose: true
+  });
+  $(".chosen-select-query").one("click",function(){
+    var _this = $(this);
+    var database = _this.find("select").data("rule")
+    $.ajax({
+    url:"/admin/template/databaseList",
+    type:"post",
+    data:{'data':database},
+    success:function(data){
+      console.log(data);
+      var lists =data.result;
+      var str = "";
+      for(var i = 0;i < lists.length;i++){
+        var obj = "";
+        for(var k in lists[0]){
+          if(/name/.test(k)){
+            obj += lists[i][k] + "  "
+          }
+        }
+        if(obj){
+          str += '<option value="'+lists[i]._id+'" >'+obj+'</option>'
+        }
+      }
+      _this.find("select").empty().append(str);
+      $(".chosen-select").trigger("chosen:updated");
+    }
+    })
+  });
+  
+  chosenConfig();
+
+  function chosenConfig() {
+
+    var config = {
+      '.chosen-select': {},
+      '.chosen-select-deselect': {
+        allow_single_deselect: true
+      },
+      '.chosen-select-no-single': {
+        disable_search_threshold: 10
+      },
+      '.chosen-select-no-results': {
+        no_results_text: 'Oops, nothing found!'
+      },
+      '.chosen-select-width': {
+        width: "95%"
+      }
+    }
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+
+  }
+</script>

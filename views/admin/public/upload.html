@@ -1,0 +1,80 @@
+<script>
+    $(document).ready(function() {
+
+        $('.summernote').summernote({
+            lang: 'zh-CN'
+        });
+
+        // 
+        $(".thumbnail").change(function() {
+
+            // 获取图片对象
+            var file = $(this)[0];
+            var formdata = new FormData();
+            formdata.append("picture", file.files[0]);
+            console.log(formdata);
+            var _this = $(this);
+            $.ajax({
+                url: "/admin/content/upload",
+                type: "post",
+                data: formdata,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+
+                    _this.next().val(data.picture).next().attr("src", data.picture);
+                }
+
+            })
+
+        })
+
+        $("#moreImgs").change(function() {
+
+            // 获取图片对象
+            var file = $(this)[0];
+            var formdata = new FormData();
+            var imgsName = $(this).data("imgsName")?$(this).data("imgsName"):"imgs";
+            formdata.append("picture", file.files[0]);
+            console.log(file.files);
+
+            $.ajax({
+                url: "/admin/content/upload",
+                type: "post",
+                data: formdata,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+
+                    var str = ` <p class="pull-left" >
+                      <input type="hidden" name="${imgsName}"  value="${data.picture}" id="">
+                      <img src="${data.picture}" style="width:'100px';height:'100px'" alt="">
+                    </p>`
+                    $("#imagelist").append(str);
+                }
+
+            })
+
+        })
+
+        $("#imagelist").on("dblclick", "p", function() {
+            var _this = $(this);
+            let imgUrl = _this.find("input").val();
+            console.log(_this);
+            $.ajax({
+                url: "/admin/content/uploadDel",
+                type: "post",
+                data: {
+                    "url": imgUrl
+                },
+                success: function(data) {
+                    _this.remove();
+                }
+            })
+        })
+    });
+</script>

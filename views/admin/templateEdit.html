@@ -1,0 +1,21 @@
+<%- include("./public/header.html")%>
+    <div class="ibox-content">
+        <form method="post" action="edit" class="form-horizontal">
+            <div class="row">
+                <input type="hidden" name="_id" value="<%=result._id%>">
+                <%for(var i=0;i<templateData.length;i++){%>
+                    <div class="form-group has-success">
+                        <label class="col-sm-2 control-label"><%=templateData[i].chineseName%></label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="<%=result[templateData[i].englishName]%>" name="<%=templateData[i].englishName%>">
+                        </div>
+                    </div>
+                    <%}%>
+            </div>
+            <button class="btn btn-success  dim" type="submit"><i class="fa fa-upload"></i>
+            </button>
+        </form>
+    </div>
+
+    <%- include("./public/footer.html")%>
